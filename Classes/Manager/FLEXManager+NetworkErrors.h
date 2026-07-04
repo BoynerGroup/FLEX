@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, copy) NSString *urlString;
 /// 0 when no HTTP response was received (transport errors such as timeouts).
 @property (nonatomic, readonly) NSInteger statusCode;
+@property (nonatomic, readonly, copy, nullable) NSString *errorDomain;
+/// 0 when the transaction failed with an HTTP status instead of an NSError.
+@property (nonatomic, readonly) NSInteger errorCode;
 @property (nonatomic, readonly, copy, nullable) NSString *errorDescription;
 
 @end

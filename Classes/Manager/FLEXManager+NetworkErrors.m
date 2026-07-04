@@ -15,6 +15,8 @@
 @property (nonatomic, readwrite, copy) NSString *method;
 @property (nonatomic, readwrite, copy) NSString *urlString;
 @property (nonatomic, readwrite) NSInteger statusCode;
+@property (nonatomic, readwrite, copy, nullable) NSString *errorDomain;
+@property (nonatomic, readwrite) NSInteger errorCode;
 @property (nonatomic, readwrite, copy, nullable) NSString *errorDescription;
 @end
 
@@ -43,7 +45,12 @@
         record.method = transaction.request.HTTPMethod ?: @"GET";
         record.urlString = transaction.request.URL.absoluteString ?: @"-";
         record.statusCode = statusCode;
-        record.errorDescription = transaction.error.localizedDescription;
+        NSError *error = transaction.error;
+        if (error != nil) {
+            record.errorDomain = error.domain;
+            record.errorCode = error.code;
+            record.errorDescription = error.localizedDescription;
+        }
         [records addObject:record];
     }
     return records;
