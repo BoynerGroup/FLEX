@@ -79,14 +79,29 @@
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     if (self.originalText.length > 0) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+        UIBarButtonItem *copyItem = [[UIBarButtonItem alloc]
             initWithTitle:@"Copy" style:UIBarButtonItemStylePlain target:self action:@selector(copyButtonTapped:)
         ];
+
+        if (@available(iOS 16.0, *)) {
+            self.webView.findInteractionEnabled = YES;
+            UIBarButtonItem *findItem = [[UIBarButtonItem alloc]
+                initWithImage:[UIImage systemImageNamed:@"magnifyingglass"]
+                style:UIBarButtonItemStylePlain target:self action:@selector(flex_findButtonTapped:)
+            ];
+            self.navigationItem.rightBarButtonItems = @[findItem, copyItem];
+        } else {
+            self.navigationItem.rightBarButtonItem = copyItem;
+        }
     }
 }
 
 - (void)copyButtonTapped:(id)sender {
     [UIPasteboard.generalPasteboard setString:self.originalText];
+}
+
+- (void)flex_findButtonTapped:(id)sender API_AVAILABLE(ios(16.0)) {
+    [self.webView.findInteraction presentFindNavigatorShowingReplace:NO];
 }
 
 
