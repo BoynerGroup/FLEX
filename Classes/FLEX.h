@@ -10,6 +10,7 @@
 #import "FLEXManager.h"
 #import "FLEXManager+Extensibility.h"
 #import "FLEXManager+Networking.h"
+#import "FLEXManager+NetworkErrors.h"
 
 #import "FLEXExplorerToolbar.h"
 #import "FLEXExplorerToolbarItem.h"
