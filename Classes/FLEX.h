@@ -24,3 +24,4 @@
 #import "FLEXMacros.h"
 #import "FLEXAlert.h"
 #import "FLEXResources.h"
+#import "FLEXFileBrowserController.h"
